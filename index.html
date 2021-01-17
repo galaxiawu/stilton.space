@@ -51,16 +51,16 @@
                     let output = document.getElementById("fun_level");
 
                     // Update the current slider value (each time you drag the slider handle)
-                    slider.oninput = function() {    
-                        if (this.value < 30) {        
-                            output.innerHTML = "Boring."        
-                            output.style.fontFamily = "goudy-old-style"    
-                        } else if (this.value < 80) {        
-                            output.innerHTML = "Geronimo..."        
-                            output.style.fontFamily = "ff-uberhand-pro"    
-                        } else {        
-                            output.innerHTML = "Stilton!"        
-                            output.style.fontFamily = "remedy"    
+                    slider.oninput = function() {
+                        if (this.value < 30) {
+                            output.innerHTML = "Boring."
+                            output.style.fontFamily = "goudy-old-style"
+                        } else if (this.value < 80) {
+                            output.innerHTML = "Geronimo..."
+                            output.style.fontFamily = "ff-uberhand-pro"
+                        } else {
+                            output.innerHTML = "Stilton!"
+                            output.style.fontFamily = "remedy"
                         }
                     }
 
