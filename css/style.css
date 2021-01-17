@@ -6,6 +6,7 @@ body {
     background-color: #FAF9F2;
     font-family: ff-uberhand-pro, sans-serif;
     font-size: 18px;
+    color: #191515;
 }
 #cheese {
     width: 100%;
@@ -45,6 +46,63 @@ textarea {
     font-family: goudy-old-style, serif;
     border: 1px solid #B50714;
 }
+
+/* slider */
+
+#slider-text {
+    font-weight: 400;
+    display: inline-block;
+    margin: 0px;
+    margin-right: 16px;
+    margin-top: 18px;
+    float: left;
+}
+#stiltonmeter {
+    margin-top: 16px;
+    display: inline-block;
+    height: 80px;
+}
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    outline: none;
+    background-color: #F2C943;
+    border-radius: 100px;
+}
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 33px;
+    height: 24px;
+    border: 0;
+    background: url('../img/slider.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.slider::-moz-range-thumb {
+    width: 23px;
+    height: 25px;
+    border: 0;
+    background: url('../img/slider.png');
+    cursor: pointer;
+}
+
+/* slider js stuff */
+
+#fun_slider {
+    width: 220px;
+}
+#fun_level {
+    margin-top: 12px;
+    margin-bottom: 0px;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+/* geronimo button */
+
 #submit {
     float: right;
     margin-top: 12px;
@@ -60,7 +118,7 @@ textarea {
     overflow: hidden;
 }
 #output {
-    margin-top: 24px;
+    margin-top: 40px;
 }
 footer {
     text-align: center;
