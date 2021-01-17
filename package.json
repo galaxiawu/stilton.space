@@ -8,6 +8,7 @@
     "url": "git://github.com/galaxiawu/stilton.space.git"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "ibm-watson": ">=5.7.1"
   },
   "keywords": [],
