@@ -23,7 +23,7 @@
 <body>
     <!-- heading section -->
     <div id="header">
-        <img src="img/cheese.svg" id="cheese">
+        <img src="img/cheese.svg" id="cheese" alt="cheese">
         <div id="tagline">
             <img src="img/logo.svg" id="logo" alt="Stilton-ify">
             <p id="enter">Enter the world of Geronimo Stilton!</p>
@@ -37,7 +37,7 @@
             <p id="slider-text">Stilton-meter:
             </p>
             <div id="stiltonmeter">
-                <input type="range" min="1" max="100" value="50" class="slider" id="fun_slider">
+                <label for="fun_slider"></label><input type="range" min="1" max="100" value="50" class="slider" id="fun_slider">
                 <p id="fun_level">Geronimo...</p>
                 <script>
                     let slider = document.getElementById("fun_slider");

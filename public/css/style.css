@@ -52,9 +52,7 @@ textarea {
 #slider-text {
     font-weight: 400;
     display: inline-block;
-    margin: 0px;
-    margin-right: 16px;
-    margin-top: 18px;
+    margin: 18px 16px 0 0;
     float: left;
 }
 #stiltonmeter {
@@ -76,19 +74,17 @@ textarea {
     width: 33px;
     height: 24px;
     border: 0;
-    background: url('https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/155/cheese-wedge_1f9c0.png');
     background-size: contain;
-    background-repeat: no-repeat;
+    background: url('https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/155/cheese-wedge_1f9c0.png') no-repeat;
     cursor: pointer;
 }
 .slider::-moz-range-thumb {
     width: 33px;
     height: 24px;
     border: 0;
-    background: url('https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/155/cheese-wedge_1f9c0.png');
     cursor: pointer;
     background-size: contain;
-    background-repeat: no-repeat;
+    background: url('https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/155/cheese-wedge_1f9c0.png') no-repeat;
 }
 
 /* slider js stuff */
@@ -98,7 +94,7 @@ textarea {
 }
 #fun_level {
     margin-top: 12px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     text-align: center;
     font-size: 1.2em;
 }
