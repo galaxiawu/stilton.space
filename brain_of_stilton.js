@@ -29,14 +29,16 @@ function Get(yourUrl){
 function stiltonify() {
     let slider = document.getElementById("fun_slider");
     const input = document.getElementById('stiltonify');
+
     const fun_prob = slider.value
     const special_words = [];
     const words = input.split(" ").map(remove_punctuation)
-    const blacklist = ['i', 'you', 'would', 'could', 'should', 'and', 'but', 'again', 'if', 'him', 'her', 'when', 'where', 'how']
+    const blacklist = ['i', 'this', 'you', 'would', 'could', 'should', 'and', 'but', 'again', 'if', 'him', 'her', 'when', 'where', 'how']
     for (const word of words) {
         if (word.toLowerCase() in blacklist) {
             continue
         }
+        slider.innerHTML = word
         const word_info = get_info(word)
         const approved_word_types = ['verb', 'noun', 'adjective', 'adverb',]
         if (approved_word_types.indexOf(word_info[0]['fl']) < 0) {
