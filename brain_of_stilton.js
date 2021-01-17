@@ -29,9 +29,7 @@ function Get(yourUrl){
 function stiltonify() {
     let slider = document.getElementById("fun_slider");
     const input = document.getElementById('stiltonify').innerHTML;
-    const enter = document.getElementById('enter')
     const fun_prob = slider.value/100
-    enter.innerHTML = ("asdfaf")
     const special_words = [];
     const words = input.split(" ").map(remove_punctuation)
     const blacklist = ['i', 'this', 'you', 'would', 'could', 'should', 'and', 'but', 'again', 'if', 'him', 'her', 'when', 'where', 'how']
@@ -92,8 +90,7 @@ function get_emotion(input) {
     }
     toneAnalyzer.tone(toneParams)
         .then(toneAnalysis => {
-            let ibm_response = JSON.stringify(toneAnalysis, null, 2);
-            for (const tone in ibm_response['document_tone']['tones']) {
+            for (const tone in toneAnalysis['document_tone']['tones']) {
                 const tone_name = tone['tone_id']
                 emote[tone_name] = tone['score']
             }
