@@ -75,18 +75,18 @@ textarea {
     appearance: none;
     width: 33px;
     height: 24px;
-    border: 0;
-    background: url('../img/slider.png');
+    background: url('https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/155/cheese-wedge_1f9c0.png');
     background-size: contain;
     background-repeat: no-repeat;
     cursor: pointer;
 }
 .slider::-moz-range-thumb {
-    width: 23px;
-    height: 25px;
-    border: 0;
-    background: url('../../img/slider.png');
+    width: 33px;
+    height: 24px;
+    background: url('https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/155/cheese-wedge_1f9c0.png');
     cursor: pointer;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 /* slider js stuff */
