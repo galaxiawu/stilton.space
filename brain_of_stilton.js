@@ -31,11 +31,11 @@ function stiltonify() {
     const input = document.getElementById('stiltonify').innerHTML;
     const enter = document.getElementById('enter')
     const fun_prob = slider.value/100
+    enter.innerHTML = ("asdfaf")
     const special_words = [];
     const words = input.split(" ").map(remove_punctuation)
     const blacklist = ['i', 'this', 'you', 'would', 'could', 'should', 'and', 'but', 'again', 'if', 'him', 'her', 'when', 'where', 'how']
     for (const word of words) {
-        enter.innerHTML = (word)
         if (word.toLowerCase() in blacklist) {
             continue
         }
