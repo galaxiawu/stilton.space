@@ -1,20 +1,14 @@
-import {get_emotion} from "./brain_of_stilton.js";
+const express = require("express")
+const app = express()
 
-const http = require('http');
-const fs = require("fs");
+// use the express-static middleware
+app.use(express.static("public"))
 
-get_emotion()
+// define the first route
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + "/index.html")
+})
 
-const hostname = '127.0.0.1';
-const port = 3000;
-
-const test = get_emotion("I am so happy");
-const server = http.createServer((req, res) => {
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  // fs.createReadStream('index.html').pipe(res)
-  res.end(test);
-});
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+// start the server listening for requests
+app.listen(process.env.PORT || 3000,
+    () => console.log("Server is running..."));

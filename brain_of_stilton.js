@@ -26,12 +26,17 @@ function Get(yourUrl){
     return JSON.parse(Httpreq.responseText);
 }
 
-const fun_prob = 0.7
-
-function stiltonify(input) {
-    const out = [];
+function stiltonify() {
+    let slider = document.getElementById("fun_slider");
+    const input = document.getElementById('stiltonify');
+    const fun_prob = slider.value
+    const special_words = [];
     const words = input.split(" ").map(remove_punctuation)
+    const blacklist = ['i', 'you', 'would', 'could', 'should', 'and', 'but', 'again', 'if', 'him', 'her', 'when', 'where', 'how']
     for (const word of words) {
+        if (word.toLowerCase() in blacklist) {
+            continue
+        }
         const word_info = get_info(word)
         const approved_word_types = ['verb', 'noun', 'adjective', 'adverb',]
         if (approved_word_types.indexOf(word_info[0]['fl']) < 0) {
@@ -46,10 +51,17 @@ function stiltonify(input) {
         }
         descriptor_dict['font'] = get_font(descriptor_dict['emotion'])
         descriptor_dict['colour'] = get_colour(descriptor_dict['emotion'])
-        out.push(descriptor_dict)
+        special_words.push(descriptor_dict)
     }
-    return out
+    let out = input
+    const text_area = document.getElementById('stiltonified');
+    for (const word of special_words) {
+        out.replace(word['word'], `<span style="color: ${word['colour']};font-family: ${word['font']};font-size: 1.4em">${word['word']}</span>`)
+
+    }
+    text_area.innerHTML = out
 }
+
 
 function remove_punctuation(word) {
     return word.replace(/[.,\/#!$?%^&*;:{}=\-_`~()]/g,"")
@@ -78,15 +90,15 @@ function get_emotion(input) {
     toneAnalyzer.tone(toneParams)
         .then(toneAnalysis => {
             let ibm_response = JSON.stringify(toneAnalysis, null, 2);
-            for (const tone in ibm_response) {
-                emote[tone['tone']] = tone['value']
+            for (const tone in ibm_response['document_tone']['tones']) {
+                const tone_name = tone['tone_id']
+                emote[tone_name] = tone['score']
             }
         })
         .catch(err => {
             console.log('error:', err);
         });
-    const final_emotion = [emote["anger"], emote["fear"], emote["joy"], emote["sadness"], emote["analytical"], emote["confident"], emote["tentative"]]
-    return final_emotion
+    return [emote["anger"], emote["fear"], emote["joy"], emote["sadness"], emote["analytical"], emote["confident"], emote["tentative"]]
 }
 
 function get_font(emotion) {
@@ -132,19 +144,23 @@ function get_colour(emotion) {
 }
 
 function cosine_similarity(a,b){
-    let dotproduct = 0;
+    let dot_product = 0;
     let mA = 0;
     let mB = 0;
     for(let i = 0; i < a.length; i++){
-        dotproduct += (a[i] * b[i]);
+        dot_product += (a[i] * b[i]);
         mA += (a[i]*a[i]);
         mB += (b[i]*b[i]);
     }
     mA = Math.sqrt(mA);
     mB = Math.sqrt(mB);
-    return (dotproduct) / (mA * mB);
+    return (dot_product) / (mA * mB);
 }
 
 function probability(n) {
     return !!n && Math.random() <= n;
+}
+
+module.exports = {
+    stiltonify,
 }
