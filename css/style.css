@@ -115,6 +115,7 @@ textarea {
     border-style: none;
     padding: 6px 16px;
     border-radius: 4px;
+    cursor: pointer;
 }
 #input {
     overflow: hidden;
