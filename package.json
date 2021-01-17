@@ -1,0 +1,12 @@
+{
+  "name": "stilton.space",
+  "version": "1.0.0",
+  "description": "Stilton Space is a website where you can convert boring old text into a Geronimo Stilton-style explosion of typographical goodness",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Andrew Leber + xiao ni",
+  "license": "MIT"
+}
