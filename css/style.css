@@ -85,7 +85,7 @@ textarea {
     width: 23px;
     height: 25px;
     border: 0;
-    background: url('../img/slider.png');
+    background: url('../../img/slider.png');
     cursor: pointer;
 }
 
