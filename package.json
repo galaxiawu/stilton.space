@@ -3,10 +3,20 @@
   "version": "1.0.0",
   "description": "Stilton Space is a website where you can convert boring old text into a Geronimo Stilton-style explosion of typographical goodness",
   "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/galaxiawu/stilton.space.git"
+  },
   "dependencies": {
     "ibm-watson": ">=5.7.1"
   },
   "keywords": [],
   "author": "Andrew Leber + xiao ni",
-  "license": "MIT"
+  "scripts": {
+    "start": "node app.js"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": "14.x"
+  }
 }
