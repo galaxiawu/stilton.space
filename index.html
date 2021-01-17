@@ -20,7 +20,6 @@
     <link rel="shortcut icon" href="img/slider.png" />
 </head>
 <!-- snail kiss! -->
-
 <body>
     <!-- heading section -->
     <div id="header">
@@ -30,22 +29,16 @@
             <p>Enter the world of Geronimo Stilton!</p>
         </div>
     </div>
-
     <!-- form -->
     <form>
         <div id="input">
             <label for="stiltonify" name="stiltonify">Text to Stilton-ify:</label>
             <textarea id="stiltonify" rows="8" placeholder="Enter text to Stilton-ify!"></textarea>
-
             <p id="slider-text">Stilton-meter:
             </p>
-
             <div id="stiltonmeter">
-
                 <input type="range" min="1" max="100" value="50" class="slider" id="fun_slider">
-
                 <p id="fun_level">Geronimo...</p>
-
                 <script>
                     let slider = document.getElementById("fun_slider");
                     let output = document.getElementById("fun_level");
@@ -63,38 +56,19 @@
                             output.style.fontFamily = "remedy"
                         }
                     }
-
                 </script>
-
-
-
-
             </div>
-
-
-            <input type="submit" value="Geronimo!!!" id="submit">
-
-
-
+            <script type="text/javascript" src="brain_of_stilton.js"></script>
+            <input type="button" value="Geronimo!!!" id="submit" onclick="stiltonify()">
         </div>
-
         <div id="output">
             <label for="stiltonified" name="stiltonified">Stiltonified!</label>
             <textarea id="stiltonified" rows="8" placeholder="Stilton-ified text will appear here!"></textarea>
         </div>
-
-
-
     </form>
-
     <footer>
         <p>Stilton-ify is made with 🧀 by xn + AB</p>
         <p>Geronimo Stilton was created by Elisabetta Dami</p>
     </footer>
-
-
-
-
 </body>
-
 </html>
