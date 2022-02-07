@@ -26,9 +26,9 @@ function Get(yourUrl){
     return JSON.parse(Httpreq.responseText);
 }
 
-function stiltonify() {
+export function stiltonify() {
     let slider = document.getElementById("fun_slider");
-    const input = document.getElementById('stiltonify').innerHTML;
+    const input = document.getElementById('stiltonify').value;
     const fun_prob = slider.value/100
     const special_words = [];
     const words = input.split(" ").map(remove_punctuation)
@@ -60,7 +60,8 @@ function stiltonify() {
         out.replace(word['word'], `<span style="color: ${word['colour']};font-family: ${word['font']};font-size: 1.4em">${word['word']}</span>`)
 
     }
-    text_area.innerHTML = out
+    text_area.value = out
+    return true
 }
 
 
@@ -91,8 +92,7 @@ function get_emotion(input) {
     toneAnalyzer.tone(toneParams)
         .then(toneAnalysis => {
             for (const tone in toneAnalysis['document_tone']['tones']) {
-                const tone_name = tone['tone_id']
-                emote[tone_name] = tone['score']
+                emote[tone['tone_id']] = tone['score']
             }
         })
         .catch(err => {
@@ -159,8 +159,4 @@ function cosine_similarity(a,b){
 
 function probability(n) {
     return !!n && Math.random() <= n;
-}
-
-module.exports = {
-    stiltonify,
 }
