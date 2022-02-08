@@ -1,4 +1,4 @@
-fonts =
+const fonts =
 [
   {
     "font": "synthemesc",
@@ -231,3 +231,4 @@ fonts =
     "tentative": 35
   }
 ]
+exports.fonts = fonts;

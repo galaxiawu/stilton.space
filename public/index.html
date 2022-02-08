@@ -45,7 +45,6 @@
 
                     // Update the current slider value (each time you drag the slider handle)
                     slider.oninput = function() {
-                        console.log("ok")
                         if (this.value < 30) {
                             output.innerHTML = "Boring."
                             output.style.fontFamily = "goudy-old-style"
@@ -59,12 +58,50 @@
                     }
                 </script>
             </div>
-            <script type="text/javascript" src="./brain_of_stilton.js"></script>
-            <input type="button" value="Geronimo!!!" id="submit" onclick="stiltonify()">
+            <input type="button" value="Geronimo!!!" id="submit">
+            <script>
+                function brain_of_stilton(word, prob) {
+                    const server_url = "http://infinite-reef-19626.herokuapp.com/brain"
+                    // const server_url = "http://localhost:3000/brain"
+                    const xhttp = new XMLHttpRequest();
+                    xhttp.open("POST", server_url, false);
+                    xhttp.setRequestHeader("Content-Type", "application/json");
+                    const data = {word: word, fun_prob: prob};
+                    xhttp.send(JSON.stringify(data));
+                    return xhttp.responseText;
+                }
+
+                const submit_button = document.getElementById("submit");
+                submit_button.addEventListener("click", stiltonify);
+                submit_button.style.display = "block";
+
+                function stiltonify() {
+                    const slider = document.getElementById("fun_slider");
+                    let fun_prob = slider.value/100
+
+                    const input = document.getElementById('stiltonify').value;
+                    const words = input.split(" ").map(remove_punctuation)
+
+                    const text_area = document.getElementById('stiltonified');
+                    text_area.innerHTML = ""
+
+                    for (const word of words) {
+                        const response = brain_of_stilton(word,fun_prob)
+                        // console.log(response)
+                        text_area.innerHTML += response + " ";
+                    }
+                    submit_button.style.display = "none";
+                }
+
+                function remove_punctuation(word) {
+                    return word.replace(/[.,\/#!$?%^&*;:{}=\-_`~()]/g,"")
+                }
+            </script>
         </div>
         <div id="output">
             <label for="stiltonified" name="stiltonified">Stiltonified!</label>
-            <textarea id="stiltonified" rows="8" placeholder="Stilton-ified text will appear here!" readonly></textarea>
+<!--            <textarea id="stiltonified" rows="8" placeholder="Stilton-ified text will appear here!" readonly></textarea>-->
+            <p id="stiltonified">"Stilton-ified text will appear here!"</p>
         </div>
     </form>
     <footer>

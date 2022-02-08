@@ -1,12 +1,16 @@
-const dictionary_api_key = '95ca5c5d-545c-49ac-b54d-8896ac25b032';
-const ibm_api_key = 'DvuygxiAZ-yKDwC4l66UQb1sRSfbJQfAQHCnRFlEc4_Z';
+require('dotenv').config();
+const fetch = require('node-fetch');
+
+// const dictionary_api_key = process.env.DICT_KEY
+// const ibm_api_key = process.env.IBM_KEY
+// const ibm_url = process.env.IBM_URL
+
+const dictionary_api_key='95ca5c5d-545c-49ac-b54d-8896ac25b032'
+const ibm_api_key='DvuygxiAZ-yKDwC4l66UQb1sRSfbJQfAQHCnRFlEc4_Z'
 const ibm_url = 'https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/add13509-7c4a-4bba-9969-2249bb3d7446'
 
 const ToneAnalyzerV3 = require('ibm-watson/tone-analyzer/v3');
 const { IamAuthenticator } = require('ibm-watson/auth');
-
-import (fonts)
-import (colours)
 
 const toneAnalyzer = new ToneAnalyzerV3({
     version: '2017-09-21',
@@ -14,85 +18,79 @@ const toneAnalyzer = new ToneAnalyzerV3({
         apikey: `${ibm_api_key}`,
     }),
     serviceUrl: `${ibm_url}`,
+    disableSslVerification: true,
 });
+
+const {fonts} = require("./fonts");
+const {colours} = require("./colours");
 
 const boring_font = "goudy-old-style"
 const boring_colour = "#191515"
 
-function Get(yourUrl){
-    const Httpreq = new XMLHttpRequest();
-    Httpreq.open("GET",yourUrl,false);
-    Httpreq.send(null);
-    return JSON.parse(Httpreq.responseText);
-}
+const blacklist = ['i', 'this', 'you', 'would', 'could', 'should', 'and', 'but', 'again', 'if', 'him', 'her', 'when', 'where', 'how']
+const approved_word_types = ['verb', 'noun', 'adjective', 'adverb',]
 
-export function stiltonify() {
-    let slider = document.getElementById("fun_slider");
-    const input = document.getElementById('stiltonify').value;
-    const fun_prob = slider.value/100
-    const special_words = [];
-    const words = input.split(" ").map(remove_punctuation)
-    const blacklist = ['i', 'this', 'you', 'would', 'could', 'should', 'and', 'but', 'again', 'if', 'him', 'her', 'when', 'where', 'how']
-    for (const word of words) {
-        if (word.toLowerCase() in blacklist) {
-            continue
-        }
-        const word_info = get_info(word)
-        const approved_word_types = ['verb', 'noun', 'adjective', 'adverb',]
-        if (approved_word_types.indexOf(word_info[0]['fl']) < 0) {
-            continue
-        }
-        if (probability(1 - fun_prob)) {
-            continue
-        }
-        let descriptor_dict = {
-            'word': word,
-            'emotion': get_emotion(word_info[0]['shortdef'][0])
-        }
-        descriptor_dict['font'] = get_font(descriptor_dict['emotion'])
-        descriptor_dict['colour'] = get_colour(descriptor_dict['emotion'])
-        special_words.push(descriptor_dict)
-        console.log(descriptor_dict)
+async function return_word(word, fun_prob) {
+
+    if (word.toLowerCase() in blacklist) {
+        return word
     }
-    let out = input
-    const text_area = document.getElementById('stiltonified');
-    for (const word of special_words) {
-        out.replace(word['word'], `<span style="color: ${word['colour']};font-family: ${word['font']};font-size: 1.4em">${word['word']}</span>`)
 
+    const word_info = await get_info(word)
+    if (word_info === 1) {
+        return word
+    } else if (typeof word_info[0] === 'string') {
+        return word
     }
-    text_area.value = out
-    return true
+
+    const definition = word_info[0]['shortdef'][0]
+
+    const word_type = word_info[0]['fl']
+    if (approved_word_types.indexOf(word_type) < 0) {
+        return word
+    }
+
+    if (probability(1 - fun_prob)) {
+        return word
+    }
+
+    let emotion = await get_emotion(definition)
+    let font = get_font(emotion)
+    let colour = get_colour(emotion)
+    return(`<span style="color: ${colour};font-family: ${font};font-size: 1.4em">${word}</span>`)
 }
 
-
-function remove_punctuation(word) {
-    return word.replace(/[.,\/#!$?%^&*;:{}=\-_`~()]/g,"")
-}
-
-function get_info(word) {
+async function get_info(word) {
     const target = `https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${dictionary_api_key}`
-    return Get(target)
+    return await fetch(target)
+        .then(res => {
+            return res.json()
+        })
+        .catch(() => {
+            return 1;
+        })
 }
 
-function get_emotion(input) {
+async function get_emotion(input) {
     const toneParams = {
         toneInput: { 'text': input },
         contentType: 'text/plain',
     };
     let emote =
     {
-        "anger": 0,
-        "fear": 0,
-        "joy": 0,
-        "sadness": 0,
-        "analytical": 0,
-        "confident": 0,
-        "tentative": 0
+        "anger": 0.,
+        "fear": 0.,
+        "joy": 0.,
+        "sadness": 0.,
+        "analytical": 0.,
+        "confident": 0.,
+        "tentative": 0.,
     }
-    toneAnalyzer.tone(toneParams)
+    await toneAnalyzer.tone(toneParams)
         .then(toneAnalysis => {
-            for (const tone in toneAnalysis['document_tone']['tones']) {
-                emote[tone['tone_id']] = tone['score']
+            let parsed = toneAnalysis['result']['document_tone']['tones'];
+            for (const tone_ind in parsed) {
+                emote[parsed[tone_ind]['tone_id']] = parsed[tone_ind]['score']
             }
         })
         .catch(err => {
@@ -160,3 +158,5 @@ function cosine_similarity(a,b){
 function probability(n) {
     return !!n && Math.random() <= n;
 }
+
+module.exports = { return_word };

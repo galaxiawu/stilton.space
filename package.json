@@ -8,8 +8,10 @@
     "url": "git://github.com/galaxiawu/stilton.space.git"
   },
   "dependencies": {
+    "dotenv": "^16.0.0",
     "express": "^4.17.1",
-    "ibm-watson": ">=5.7.1"
+    "ibm-watson": ">=5.7.1",
+    "node-fetch": "^2.6.7"
   },
   "keywords": [],
   "author": "Andrew Leber + xiao ni",

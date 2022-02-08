@@ -1,4 +1,4 @@
-colours =
+const colours =
 [
     {
         "hex": "A6093D",
@@ -171,3 +171,4 @@ colours =
         "tentative": 25
     }
 ]
+exports.colours = colours;
